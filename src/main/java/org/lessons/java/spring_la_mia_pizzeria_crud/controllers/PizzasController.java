@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Discount;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_crud.repo.IngredientRepository;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repo.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/pizza")
 public class PizzasController {
     
+    private final IngredientRepository ingredientRepository;
     @Autowired
     private PizzaRepository repository;
+
+    PizzasController(IngredientRepository ingredientRepository) {
+        this.ingredientRepository = ingredientRepository;
+    }
 
     @GetMapping
     public String index(@RequestParam(value = "valoreRicerca", required= false) String valore,  Model model) {
@@ -52,8 +58,9 @@ public class PizzasController {
     public String create(Model model) {
 
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredients", ingredientRepository.findAll());
 
-        return "create";
+        return "create-edit";
     }
     
     @PostMapping("/create")
@@ -63,7 +70,8 @@ public class PizzasController {
         Model model
     ) {
         if (bindingResult.hasErrors()) {
-            return "/create";
+            model.addAttribute("ingredients", ingredientRepository.findAll());
+            return "create-edit";
         }
         repository.save(pizza);
         return "redirect:/pizza";
@@ -72,7 +80,9 @@ public class PizzasController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("pizza", repository.findById(id).get());
-        return "edit";
+        model.addAttribute("edit", true);
+        model.addAttribute("ingredients", ingredientRepository.findAll());
+        return "create-edit";
     }
 
     @PostMapping("/edit/{id}")
@@ -82,7 +92,8 @@ public class PizzasController {
                         Model model
     ) {
         if (bindingResult.hasErrors()) {
-            return "edit";
+            model.addAttribute("ingredients", ingredientRepository.findAll());
+            return "create-edit";
         }
 
         repository.save(pizza);
