@@ -29,7 +29,13 @@
                             <a th:class="|nav-link |" href="/pizza">Pizzas</a>
                         </li>
                         <li class="nav-item">
-                            <a th:class="|nav-link|" href="/pizza/create">Add new pizza</a>
+                            <a th:class="|nav-link|" href="/pizza/create">New pizza</a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:class="|nav-link|" href="/ingredients">Ingredients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a th:class="|nav-link|" href="/ingredients/create">New ingredient</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search" th:action="@{/pizza}" method="get">
