@@ -34,7 +34,7 @@ public class Pizza {
     private String imageUrl;
 
     @NotNull
-    private Float price;
+    private Double price;
 
     @OneToMany(mappedBy = "pizza", cascade = CascadeType.REMOVE)
     private List<Discount> discounts;
@@ -65,7 +65,7 @@ public class Pizza {
         return imageUrl;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
@@ -91,7 +91,7 @@ public class Pizza {
         this.imageUrl = imageUrl;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -103,7 +103,12 @@ public class Pizza {
     }
     @Override
     public String toString() {
-        
-        return String.format("- %s, pizza %s: %s, il prezzo è %.2f € -", this.id, this.name, this.description, this.price);
+
+        return String.format("- %s, pizza %s: %s, il prezzo è %.2f € -", this.id, this.name, this.description,
+                this.price);
+    }
+    
+    public String getRoundedPrice() {
+        return String.format("%.2f", price);
     }
 }

@@ -71,7 +71,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Pizza [[${pizza.name}]]</h5>
                             <p class="card-text">Description: [[${pizza.description}]]</p>
-                            <p th:text="|€ ${pizza.price}|" />
+                            <p th:text="|€ ${pizza.getRoundedPrice()}|" />
                         </div>
                     </div>
                 </div>

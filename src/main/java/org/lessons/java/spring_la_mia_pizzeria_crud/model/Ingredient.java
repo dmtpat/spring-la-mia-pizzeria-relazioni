@@ -46,7 +46,22 @@ public class Ingredient {
     public void setName(String name) {
         this.name = name;
     }
+
     public void setPizzas(List<Pizza> pizzas) {
         this.pizzas = pizzas;
+    }
+
+    // Override del metodo equals per controllare se i valori sono presenti nella lista degli ingredienti 
+    // dell0oggetto principale collegato (nelle checkbox)
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Ingredient)) {
+            return false;
+        }
+        Ingredient ingredient = (Ingredient) o;
+        return id != null && id.equals(ingredient.getId());
     }
 }
